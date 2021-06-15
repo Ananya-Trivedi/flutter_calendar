@@ -110,15 +110,18 @@ class _AddEventPageState extends State<AddEventPage> {
                               setState(() {
                                 processing = true;
                               });
-                              final data = {
-                                "title": _title.text,
-                                "description": _description.text,
-                                "event_date": widget.note.eventDate
-                              };
-                              if (widget.note != null) {
-                                await eventDBS.updateData(widget.note.id, data);
-                              } else {
-                                await eventDBS.create(data);
+                              if(widget.note != null) {
+                                await eventDBS.updateData(widget.note.id,{
+                                  "title": _title.text,
+                                  "description": _description.text,
+                                  "event_date": widget.note.eventDate
+                                });
+                              }else{
+                                await eventDBS.createItem(EventModel(
+                                  title: _title.text,
+                                  description: _description.text,
+                                  eventDate: DateTime.now()
+                                ));
                               }
                               Navigator.pop(context);
                               setState(() {
