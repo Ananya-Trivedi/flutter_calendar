@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Define the default brightness and colors.
         brightness: Brightness.dark,
-        primaryColor: Colors.deepPurple[200],
+        primaryColor: Colors.deepPurple[300],
         // ignore: deprecated_member_use
         accentColor: Colors.deepPurple[100],
 
@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
     allEvents.forEach((event) {
       DateTime date = DateTime(
           event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
-      if (data[date] == null) data[date] = [];
+      if (data[date] == null) {
+        data[date] = [];
+      }
       data[date].add(event);
     });
     return data;
@@ -90,32 +92,40 @@ class _HomePageState extends State<HomePage> {
                     events: _events,
                     initialCalendarFormat: CalendarFormat.week,
                     calendarStyle: CalendarStyle(
-                todayColor: Colors.deepPurple[200],
-                selectedColor: Colors.deepPurple[400],
-                // ignore: prefer_const_constructors
-                todayStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  color: Colors.black
-                )
-              ),
+                        todayColor: Colors.deepPurple[200],
+                        selectedColor: Colors.deepPurple,
+                        // ignore: prefer_const_constructors
+                        todayStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                            color: Colors.black)),
                     headerStyle: HeaderStyle(
-                centerHeaderTitle: true,
-                formatButtonDecoration: BoxDecoration(
-                  color: Colors.deepPurple[400],
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                // ignore: prefer_const_constructors
-                formatButtonTextStyle: TextStyle(color: Colors.white),
-                formatButtonShowsNext: false,
-              ),
-                    startingDayOfWeek: StartingDayOfWeek.monday,
+                      centerHeaderTitle: true,
+                      formatButtonDecoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      // ignore: prefer_const_constructors
+                      formatButtonTextStyle: TextStyle(color: Colors.white),
+                      formatButtonShowsNext: false,
+                    ),
+                    startingDayOfWeek: StartingDayOfWeek.sunday,
                     onDaySelected: (date, events) {
                       setState(() {
                         _selectedEvents = events;
                       });
                     },
                     builders: CalendarBuilders(
+                      singleMarkerBuilder: (context, date, event) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color.fromRGBO(255, 255, 255, 1.0)),
+                          width: 7.0,
+                          height: 7.0,
+                          margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                        );
+                      },
                       selectedDayBuilder: (context, date, events) => Container(
                           margin: const EdgeInsets.all(4.0),
                           alignment: Alignment.center,
@@ -127,19 +137,21 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(color: Colors.white),
                           )),
                       todayDayBuilder: (context, date, events) => Container(
-                    margin: const EdgeInsets.all(4.0),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.deepPurple[400],
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Text(
-                      date.day.toString(),
-                      // ignore: prefer_const_constructors
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-              calendarController: _controller,
-            ),
+                          margin: const EdgeInsets.all(4.0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              // color: Colors.deepPurple,
+                              border: Border.all(
+                                  width: 2.2, color: Colors.deepPurple),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Text(
+                            date.day.toString(),
+                            // ignore: prefer_const_constructors
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    calendarController: _controller,
+                  ),
                   ..._selectedEvents.map((event) => ListTile(
                         title: Text(event.title),
                         onTap: () {
