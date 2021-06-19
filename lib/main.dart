@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   TableCalendar(
                     events: _events,
-                    initialCalendarFormat: CalendarFormat.week,
+                    initialCalendarFormat: CalendarFormat.month,
                     calendarStyle: CalendarStyle(
                         todayColor: Colors.deepPurple[200],
                         selectedColor: Colors.deepPurple,

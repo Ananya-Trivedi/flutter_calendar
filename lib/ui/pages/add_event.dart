@@ -73,7 +73,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   decoration: InputDecoration(
                       labelText: "Description",
                       filled: true,
-                      fillColor: Colors.black87,
+                      fillColor: Colors.black54,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),
