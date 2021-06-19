@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             date.day.toString(),
                             // ignore: prefer_const_constructors
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.purple),
                           )),
                     ),
                     calendarController: _controller,
